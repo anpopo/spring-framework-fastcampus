@@ -12,7 +12,7 @@ public class PasswordValidatorTest {
     @DisplayName("비밀번호 최소 8자 이상, 12자 이하면 예외 발생하지 않는다.")
     @Test
     void validatePasswordTest() {
-        Assertions.assertThatCode(() -> PasswordValidator.validate("architectanpopo"))
+        Assertions.assertThatCode(() -> PasswordValidator.validate("architeco"))
             .doesNotThrowAnyException();
     }
 
