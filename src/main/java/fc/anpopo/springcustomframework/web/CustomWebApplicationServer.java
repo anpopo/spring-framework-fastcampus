@@ -1,24 +1,18 @@
 package fc.anpopo.springcustomframework.web;
 
-import fc.anpopo.springcustomframework.calculator.Calculator;
-import fc.anpopo.springcustomframework.calculator.PositiveNumber;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.ServerSocket;
-
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CustomWebApplicationServer {
 
-    private final int port;
     private static final Logger logger = LoggerFactory.getLogger(CustomWebApplicationServer.class);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private final int port;
 
     public CustomWebApplicationServer(int port) {
         this.port = port;
@@ -33,31 +27,13 @@ public class CustomWebApplicationServer {
             while ((clientSocket = serverSocket.accept()) != null) {
                 logger.info("[CustomWebApplicationServer] client connected.");
 
-                try (
-                    InputStream is = clientSocket.getInputStream();
-                    OutputStream os = clientSocket.getOutputStream();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    DataOutputStream dos = new DataOutputStream(os);
-                ) {
-                    HttpRequest httpRequest = new HttpRequest(br);
+                // 사용자 요청시마다 계속해서 thread 를 생성?! -> 독립적인 메모리 생성해서 사용
+                // cpu 의 컨텍스트 스위칭 + 메모리 비용 증가 -> 서버 리소스의 과부하..
+//                new Thread(new ClientRequestHandler(clientSocket)).start();
 
-                    if (httpRequest.isRequestEqualsMethod("GET") && httpRequest.matchPath("/calculate")) {
-                        QueryStrings queryStrings = httpRequest.getQueryStrings();
-
-                        int op1 = Integer.parseInt(queryStrings.getValue("op1"));
-                        String op = queryStrings.getValue("op");
-                        int op2 = Integer.parseInt(queryStrings.getValue("op2"));
-
-                        int result = Calculator.calculateV4(new PositiveNumber(op1), op, new PositiveNumber(op2));
-                        byte[] body = String.valueOf(result).getBytes(StandardCharsets.UTF_8);
-
-                        HttpResponse response = new HttpResponse(dos);
-                        response.response200Header("application/json", body.length);
-                        response.responseBody(body);
-                    }
-                }
+                // thread pool 을 사용해 스레드 리소스의 한계를 적용 및 최적화
+                executorService.execute(new ClientRequestHandler(clientSocket));
             }
         }
     }
-
 }
