@@ -1,4 +1,4 @@
-package fc.anpopo.springcustomframework;
+package fc.anpopo.springcustomframework.calculator;
 
 public class PositiveNumber {
 

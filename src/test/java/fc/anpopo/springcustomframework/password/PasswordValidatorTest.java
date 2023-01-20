@@ -1,5 +1,6 @@
-package fc.anpopo.springcustomframework;
+package fc.anpopo.springcustomframework.password;
 
+import fc.anpopo.springcustomframework.password.PasswordValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

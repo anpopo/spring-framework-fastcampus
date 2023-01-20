@@ -1,4 +1,4 @@
-package fc.anpopo.springcustomframework;
+package fc.anpopo.springcustomframework.password;
 
 public class PasswordValidator {
 

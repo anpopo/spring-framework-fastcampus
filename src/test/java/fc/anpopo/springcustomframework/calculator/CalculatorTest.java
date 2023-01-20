@@ -1,5 +1,7 @@
-package fc.anpopo.springcustomframework;
+package fc.anpopo.springcustomframework.calculator;
 
+import fc.anpopo.springcustomframework.calculator.Calculator;
+import fc.anpopo.springcustomframework.calculator.PositiveNumber;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

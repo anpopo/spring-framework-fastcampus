@@ -1,9 +1,9 @@
-package fc.anpopo.springcustomframework;
+package fc.anpopo.springcustomframework.calculator;
 
-import fc.anpopo.springcustomframework.arithmetic.AddOperator;
-import fc.anpopo.springcustomframework.arithmetic.DivOperator;
-import fc.anpopo.springcustomframework.arithmetic.MulOperator;
-import fc.anpopo.springcustomframework.arithmetic.SubOperator;
+import fc.anpopo.springcustomframework.calculator.arithmetic.AddOperator;
+import fc.anpopo.springcustomframework.calculator.arithmetic.DivOperator;
+import fc.anpopo.springcustomframework.calculator.arithmetic.MulOperator;
+import fc.anpopo.springcustomframework.calculator.arithmetic.SubOperator;
 import java.util.List;
 
 public class Calculator {

@@ -1,6 +1,6 @@
-package fc.anpopo.springcustomframework.arithmetic;
+package fc.anpopo.springcustomframework.calculator.arithmetic;
 
-import fc.anpopo.springcustomframework.NewArithmeticOperator;
+import fc.anpopo.springcustomframework.calculator.NewArithmeticOperator;
 
 public class MulOperator implements NewArithmeticOperator {
 
